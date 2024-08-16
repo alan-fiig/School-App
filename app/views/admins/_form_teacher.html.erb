@@ -1,0 +1,59 @@
+<div class="p-4 sm:ml-64 dark:bg-gray-800 min-h-screen">
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <%= form_for @teacher, url: (@teacher.new_record? ? create_teacher_path : update_teacher_path(@teacher)), method: (@teacher.new_record? ? :post : :patch) do |f| %>
+                <div class="flex flex-col text-center w-full mb-10">
+                    <h1><%= f.label title, class: "sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900 dark:text-white"%></h1>  
+                </div>
+                <div class="flex justify-center items-center mb-5"> 
+                    <div class="col-span-6 ml-2 sm:col-span-4 md:mr-3 text-center">
+                        <%= f.label :"Foto de perfil", class: "block text-sm font-medium mb-2 text-center text-gray-900 dark:text-white" %>
+                        
+                        <div class="flex flex-col items-center">
+                            <% if @teacher.photo.attached? %>
+                                <div id="image-preview" class="flex justify-center items-center h-40 w-40 my-4 border-2 border-gray-300 rounded-full overflow-hidden bg-gray-100">
+                                    <img src="<%= url_for(@teacher.photo) %>">
+                                </div>
+                            <% else %>
+                                <div id="image-preview" class="flex justify-center items-center h-40 w-40 my-4 border-2 border-gray-300 rounded-full overflow-hidden bg-gray-100"></div>
+                            <% end %>
+                            <div class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-sm text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-400 focus:shadow-outline-blue active:text-gray-800 active:bg-gray-50 transition ease-in-out duration-150 mt-2 ml-3">
+                                <%= f.file_field :photo %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid gap-6 mb-6 md:grid-cols-2">
+                    <div>
+                        <%= f.label :Nombre, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                        <%= f.text_field :name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Ingresa el nombre", pattern: "[a-zA-Zá-úÁ-Ú\s]*", title: "Ingresa el nombre", required: true %>
+                    </div>
+                    <div>
+                        <%= f.label :"Apellidos", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                        <%= f.text_field :last_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Ingresa los apellidos", pattern: "[a-zA-Zá-úÁ-Ú\s]*", title: "Ingresa los apellidos",  required: true %>
+                    </div>                 
+                    <div>
+                        <%= f.label :"Fecha de nacimiento", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                        <%= f.date_field :birthdate, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "01/01/2000", title: "Ingresa la fecha de nacimiento", required: true %>
+                    </div>
+                    <div>
+                        <%= f.label :"Teléfono", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                        <%= f.number_field :telephone, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "123-456-7890", oninput: "this.value = this.value.slice(0, 10).replace(/[^0-9]/g, '')", title: "El teléfono debe tener 10 dígitos", required: true %>
+                    </div>
+                    <div>
+                        <%= f.label :Email, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                        <%= f.email_field :email, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "email@example.com", title: "Debe ser un correo eléctronico", required: true %>
+                    </div>
+                    <div>
+                        <%= f.label :Contraseña, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                        <%= f.password_field :password, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", placeholder: "Ingresa la contraseña",title: "La contraseña debe tener minimo 6 caracteres", required: true %>
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-5 sm:space-y-0"> 
+                    <%= f.submit submit_button_text, class: "p-2 flex justify-center items-center gap-2 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#28B8D5] via-[#155E8D] to-[#075760] hover:shadow-xl hover:shadow-blue-500 hover:scale-105 duration-300 hover:from-[#075760] hover:to-[#28B8D5]" %>
+                    <%= link_to "Cancelar", teachers_url, class: "p-5 flex justify-center items-center gap-2 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#f87171] via-[#ef4444] to-[#dc2626] hover:shadow-xl hover:shadow-red-500 hover:scale-105 duration-300 hover:from-[#dc2626] hover:to-[#f87171]" %>
+                </div>
+            <% end %>
+        </div>
+    </section>
+</div>
