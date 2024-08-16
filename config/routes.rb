@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   delete "/logout", to: "pages#destroy", as: "logout"
 
   get "/admin/dashboard", to: "admins#dashboard", as: "dashboard_path"
+  get "/teacher/dashboard", to: "teachers#dashboard", as: "dashboard_teacher_path"
+  get "/student/dashboard", to: "students#dashboard", as: "dashboard_student_path"
 
   # Teachers
   get "admin/teachers", to: "admins#teachers", as: "teachers"

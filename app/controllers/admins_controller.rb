@@ -1,4 +1,5 @@
 class AdminsController < ApplicationController
+  before_action :require_admin
   before_action :set_teacher, only: [:show_teacher, :edit_teacher, :update_teacher, :delete_teacher]
   before_action :set_student, only: [:show_student, :edit_student, :update_student, :delete_student]
   before_action :set_subject, only: [:edit_subject, :update_subject, :delete_subject]
@@ -114,6 +115,12 @@ class AdminsController < ApplicationController
   end
 
   private
+
+  def require_admin
+    unless session[:user_type] == "Admin"
+      redirect_to login_path, alert: "No autorizado"
+    end
+  end
 
   def set_teacher
     @teacher = Teacher.find(params[:id])
