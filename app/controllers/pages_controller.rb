@@ -31,11 +31,11 @@ class PagesController < ApplicationController
   def after_login_path_for(user)
     case user
       when Admin
-        dashboard_path_url
+        admin_dashboard_url
       when Teacher
-        dashboard_teacher_path_url
+        dashboard_admin_teachers_path
       when Student
-        dashboard_student_path_url
+        dashboard_admin_students_path
       else
         root_path
       end

@@ -1,4 +1,4 @@
-<%= render 'menu' %>
+<%= render 'admin/menu' %>
 <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/styles/tailwind.css">
 <link rel="stylesheet" href="https://demos.creative-tim.com/notus-js/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css">
 
@@ -52,7 +52,7 @@
                 Description
             </p>
             <div class="flex justify-center items-center">
-                <%= link_to students_url, class:"cursor-pointer duration-200 hover:scale-125 active:scale-100", title:"Regresar" do %>
+                <%= link_to admin_students_path, class:"cursor-pointer duration-200 hover:scale-125 active:scale-100", title:"Regresar" do %>
                     <svg xmlns="http://www.w3.org/2000/svg" width="50px" height="50px" viewBox="0 0 24 24" class="stroke-blue-300">
                         <path stroke-linejoin="round" stroke-linecap="round" stroke-width="1.5" d="M11 6L5 12M5 12L11 18M5 12H19"></path>
                     </svg>
