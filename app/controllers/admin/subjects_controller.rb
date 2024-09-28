@@ -11,7 +11,6 @@ class Admin::SubjectsController < Admin::AuthenticationController
 
   def create
     @subject = Subject.new(subject_params)
-    @subject.group = params[:subject][:group].join(', ')
     if @subject.save
       flash[:success] = 'Materia agregado con éxito'
       redirect_to admin_subjects_path
@@ -22,7 +21,6 @@ class Admin::SubjectsController < Admin::AuthenticationController
   end
 
   def update
-    @subject.group = params[:subject][:group].join(', ')
     if @subject.update(subject_params)
       flash[:success] = 'Materia actualizado con éxito'
       redirect_to admin_subjects_path
@@ -45,6 +43,6 @@ class Admin::SubjectsController < Admin::AuthenticationController
   end
 
   def subject_params
-    params.require(:subject).permit(:name_subject, :grade, :group)
+    params.require(:subject).permit(:name_subject)
   end
 end

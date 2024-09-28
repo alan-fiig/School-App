@@ -1,5 +1,6 @@
 class Subject < ApplicationRecord
-  validates :name_subject, presence: true
-  validates :grade, presence: true
-  validates :group, presence: true
+  has_many :teacher_subjects
+  has_many :teachers, through: :teacher_subjects
+
+  validates :name_subject, presence: true, uniqueness: true
 end

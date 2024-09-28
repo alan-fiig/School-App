@@ -1,0 +1,55 @@
+<div class="p-4 sm:ml-64 dark:bg-gray-800 min-h-screen">
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 py-24 mx-auto">
+            <%= form_with model: [:admin, @teacher_subject], id: "subject_form" do |f| %>
+                <div class="flex flex-col text-center w-full mb-10">
+                    <h1><%= f.label title, class: "sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900 dark:text-white"%></h1>  
+                </div>
+                <div class="grid gap-6 mb-6 md:grid-cols-1">
+                    <div>
+                        <%= f.label :Maestro, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                        <% if Teacher.exists? %>
+                            <%= f.collection_select :teacher_id, Teacher.all, :id, :name, {}, { class: "form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", title: "Ingresa el maestro", required: true } %>
+                        <% else %>
+                            <p class="text-red-400">No hay maestros registrados.</p>
+                        <%end%>
+                    </div>
+                    <div>
+                        <%= f.label :Materia, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                        <% if Subject.exists? %>
+                            <%= f.collection_select :subject_id, Subject.all, :id, :name_subject, {}, { class: "form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", title: "Ingresa la materia", required: true } %>
+                        <% else %>
+                            <p class="text-red-400">No hay materias registradas.</p>
+                        <%end%>
+                    </div>
+                </div>
+                <div class="grid gap-6 mb-6 md:grid-cols-2">
+                    <div>
+                        <%= f.label :"Grado", class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                        <%= f.select :grade, [1,2,3,4,5,6], { selected: @teacher_subject.grade || 1 }, class: "form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500", title: "Ingresa el grado", required: true %>
+                    </div>
+                    <div>
+                        <%= f.label :Grupo, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-white" %>
+                        <% ('A'..'F').to_a.each do |group| %>
+                            <div class="form-check form-check-inline" style="position: relative;">
+                                <%= check_box_tag 'teacher_subject[group][]', group, @teacher_subject.group&.split(', ')&.include?(group), id: "group_#{group}", class: 'form-check-input', style: "width: 20px; height: 20px; margin-right: 5px;" %>
+                                <%= label_tag "group_#{group}", group, class: 'form-check-label text-gray-500', style: "position: absolute; top: 50%; transform: translateY(-50%);" %>
+                            </div>
+                        <% end %>
+                        <div class="form-check">
+                            <%= check_box_tag 'select_all', '1', false, id: 'select_all', class: 'form-check-input', style: "width: 20px; height: 20px; margin-right: 5px;" %>
+                            <%= label_tag 'select_all', 'Todos', class: 'form-check-label text-gray-500' %>
+                        </div>
+                        <div id="group-error" class="text-red-500 text-sm mt-2" style="display: none;">
+                            Por favor seleccione al menos un grupo.
+                        </div>
+                    </div>
+                <div class="flex flex-col sm:flex-row sm:space-x-5 space-y-5 sm:space-y-0"> 
+                    <%= f.submit submit_button_text, class: "p-2 flex justify-center items-center gap-2 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#28B8D5] via-[#155E8D] to-[#075760] hover:shadow-xl hover:shadow-blue-500 hover:scale-105 duration-300 hover:from-[#075760] hover:to-[#28B8D5]" %>
+                    <%= link_to "Cancelar", admin_teacher_subjects_path, class: "p-5 flex justify-center items-center gap-2 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#f87171] via-[#ef4444] to-[#dc2626] hover:shadow-xl hover:shadow-red-500 hover:scale-105 duration-300 hover:from-[#dc2626] hover:to-[#f87171]" %>
+                </div>
+            <% end %>
+        </div>
+    </section>
+</div>
+

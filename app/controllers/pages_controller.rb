@@ -7,6 +7,7 @@ class PagesController < ApplicationController
     if user&.authenticate(params[:password])
       session[:user_id] = user.id
       session[:user_type] = user.class.name
+      session[:user_name] = user.name
       redirect_to after_login_path_for(user)
     else
       redirect_to :login, flash: { error: 'Email o contraseña inválido.' }
@@ -17,6 +18,7 @@ class PagesController < ApplicationController
   def destroy
     session[:user_id] = nil
     session[:user_type] = nil
+    session[:user_name] = nil
     redirect_to root_path, flash: { info: 'Sesión cerrada correctamente.' }
   end
 
@@ -33,9 +35,9 @@ class PagesController < ApplicationController
       when Admin
         admin_dashboard_url
       when Teacher
-        dashboard_admin_teachers_path
+        teacher_dashboard_url
       when Student
-        dashboard_admin_students_path
+        student_dashboard_url
       else
         root_path
       end

@@ -11,12 +11,17 @@ Rails.application.routes.draw do
   namespace :admin do
     get "dashboard", to: "dashboards#dashboard"
 
-    resources :students do
-      get "dashboard", on: :collection
-    end
-    resources :teachers do
-      get "dashboard", on: :collection
-    end
+    resources :students
+    resources :teachers
     resources :subjects, except: :show
+    resources :teacher_subjects, except: :show
+  end
+
+  namespace :teacher do
+    get "dashboard", to: "dashboards#dashboard"
+  end
+
+  namespace :student do
+    get "dashboard", to: "dashboards#dashboard"
   end
 end

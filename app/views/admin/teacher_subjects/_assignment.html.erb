@@ -1,30 +1,39 @@
 <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700">
     <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-        <%= subject.name_subject %>
+        <%= teacher_subject.teacher.name %>
     </th>
+    <td class="px-6 py-4">
+        <%= teacher_subject.subject.name_subject %>
+    </td>
+    <td class="px-6 py-4">
+        <%= teacher_subject.grade %>
+    </td>
+    <td class="px-6 py-4">
+        <%= teacher_subject.group.is_a?(Array) ? teacher_subject.group.join(', ') : teacher_subject.group %>
+    </td>
 
     <td class="px-6 py-4">
         <div class="flex justify-center items-center"> 
-            <div class="flex justify-center items-center" data-tooltip-target="edit-hover-<%= subject.id %>" data-tooltip-trigger="hover" type="button">
-                <%= link_to edit_admin_subject_path(subject), class: "ml-1 text-yellow-500 hover:text-yellow-700" do %>
+            <div class="flex justify-center items-center" data-tooltip-target="edit-hover-<%= teacher_subject.id %>" data-tooltip-trigger="hover" type="button">
+                <%= link_to edit_admin_teacher_subject_path(teacher_subject), class: "ml-1 text-yellow-500 hover:text-yellow-700" do %>
                     <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
                     </svg>
                 <% end %>
             </div>
-            <div id="edit-hover-<%= subject.id %>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-800">
-                Actualizar materia
+            <div id="edit-hover-<%= teacher_subject.id %>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-800">
+                Actualizar asignación
                 <div class="tooltip-arrow" data-popper-arrow></div>
             </div>
 
-            <a data-tooltip-target="delete-hover-<%= subject.id %>" data-tooltip-trigger="hover">
-                <%= button_to admin_subject_url(subject), method: :delete, class: 'text-red-500 hover:text-red-700', onclick: "return confirm('¿Estás seguro de que deseas eliminar esta materia?');" do %>
+            <a data-tooltip-target="delete-hover-<%= teacher_subject.id %>" data-tooltip-trigger="hover">
+                <%= button_to admin_teacher_subject_url(teacher_subject), method: :delete, class: 'text-red-500 hover:text-red-700', onclick: "return confirm('¿Estás seguro de que deseas eliminar esta materia?');" do %>
                     <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
                     </svg>
                 <% end %>
             </a>
-            <div id="delete-hover-<%= subject.id %>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-800">
+            <div id="delete-hover-<%= teacher_subject.id %>" role="tooltip" class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-800">
                 Eliminar materia
                 <div class="tooltip-arrow" data-popper-arrow></div>
             </div>

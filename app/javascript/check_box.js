@@ -1,7 +1,7 @@
 document.addEventListener("turbo:load", () => {
   const selectAllCheckbox = document.getElementById("select_all");
   const checkboxes = document.querySelectorAll(
-    'input[name="subject[group][]"]'
+    'input[name="teacher_subject[group][]"]'
   );
   const errorDiv = document.getElementById("group-error");
   const form = document.getElementById("subject_form");
@@ -9,25 +9,24 @@ document.addEventListener("turbo:load", () => {
   // Manejar el evento de cambio en el checkbox de seleccionar/deseleccionar todo
   if (selectAllCheckbox) {
     selectAllCheckbox.addEventListener("change", (event) => {
-      const isChecked = event.target.checked;
       checkboxes.forEach((checkbox) => {
-        checkbox.checked = isChecked;
+        checkbox.checked = event.target.checked;
       });
     });
   }
 
   // Manejar la validación al enviar el formulario
   if (form) {
-    form.addEventListener("submit", function (event) {
-      let checkedOne = Array.prototype.slice
-        .call(checkboxes)
-        .some((x) => x.checked);
+    form.addEventListener("submit", (event) => {
+      const hasChecked = Array.from(checkboxes).some(
+        (checkbox) => checkbox.checked
+      );
 
-      if (!checkedOne) {
-        event.preventDefault(); // Prevent form submission
-        errorDiv.style.display = "block";
+      if (!hasChecked) {
+        event.preventDefault(); // Previene el envío del formulario
+        errorDiv.style.display = "block"; // Muestra el error
       } else {
-        errorDiv.style.display = "none";
+        errorDiv.style.display = "none"; // Oculta el error si hay al menos uno seleccionado
       }
     });
   }

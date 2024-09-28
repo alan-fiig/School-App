@@ -4,10 +4,10 @@
         <div class="container px-5 py-24 mx-auto">
             <div class="flex justify-center items-center mb-20">
                 <div class="flex flex-col text-center w-full">
-                    <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 dark:text-white">Materias</h1>            
+                    <h1 class="sm:text-3xl text-2xl font-medium title-font text-gray-900 dark:text-white">Asignaciones</h1>            
                 </div>
                 <div>
-                    <%= link_to new_admin_subject_path, class: "flex justify-center items-center gap-2 w-28 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#14b8a6] via-[#059669] to-[#047857] hover:shadow-xl hover:shadow-green-500 hover:scale-105 duration-300 hover:from-[#047857] hover:to-[#14b8a6]" do %>
+                    <%= link_to new_admin_teacher_subject_path, class: "flex justify-center items-center gap-2 w-28 h-12 cursor-pointer rounded-md shadow-2xl text-white font-semibold bg-gradient-to-r from-[#14b8a6] via-[#059669] to-[#047857] hover:shadow-xl hover:shadow-green-500 hover:scale-105 duration-300 hover:from-[#047857] hover:to-[#14b8a6]" do %>
                         <svg class="w-5 fill-white" viewBox="0 0 15 15">
                             <svg
                             class="w-6 h-6"
@@ -23,13 +23,22 @@
                     <% end %>
                 </div>
             </div>
-            <% if @subjects.present? %>
+            <% if @teacher_subjects.present? %>
                 <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                     <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3">
-                                    Nombre
+                                    Maestro
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Materia
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Grado
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Grupos
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                 ‎     
@@ -37,12 +46,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <%= render partial: "subject", collection: @subjects %>
+                            <%= render partial: "assignment", collection: @teacher_subjects, as: :teacher_subject %>
                         </tbody>
                     </table>
                 </div>
             <% else %>
-                <p class="dark:text-gray-400">No hay materias para mostrar.</p>
+                <p class="dark:text-gray-400">No hay asociaciones para mostrar.</p>
             <% end %>
         </div>
     </section>
