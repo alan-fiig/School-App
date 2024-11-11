@@ -1,5 +1,6 @@
 class Student < ApplicationRecord
   has_one_attached :photo
+  has_many :subjects, through: :teacher_subjects, source: :subject
   has_secure_password
 
   validates :photo, presence: true
@@ -11,4 +12,9 @@ class Student < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6, message: "Debe tener al menos 6 caracteres" }
   validates :grade, presence: true, format: { with: /\A\d{1}\z/, message: "Ingresa el grado" }
   validates :group, presence: true, length: { maximum: 1, message: "Debe tener solo 1 grupo" }
+
+  def enrolled_subjects
+    TeacherSubject.where(grade: self.grade)
+                  .where("`group` LIKE ?", "%#{self.group}%")
+  end
 end
