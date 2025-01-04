@@ -1,9 +1,11 @@
 class Student < ApplicationRecord
   has_one_attached :photo
+  has_many :ratings
   has_many :subjects, through: :teacher_subjects, source: :subject
+  has_many :teacher_subjects, through: :ratings
   has_secure_password
 
-  validates :photo, presence: true
+  #validates :photo, presence: true
   validates :name, presence: true
   validates :last_name, presence: true
   validates :birthdate, presence: true

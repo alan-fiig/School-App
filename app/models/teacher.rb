@@ -2,9 +2,10 @@ class Teacher < ApplicationRecord
   has_one_attached :photo
   has_many :teacher_subjects
   has_many :subjects, through: :teacher_subjects
+  has_many :ratings, through: :teacher_subjects
   has_secure_password
 
-  validates :photo, presence: true
+  #validates :photo, presence: true
   validates :name, presence: true
   validates :last_name, presence: true
   validates :birthdate, presence: true

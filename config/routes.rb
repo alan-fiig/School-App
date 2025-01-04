@@ -15,10 +15,13 @@ Rails.application.routes.draw do
     resources :teachers
     resources :subjects, except: :show
     resources :teacher_subjects, except: :show
+    get "classrooms", to: "classrooms#classroom"
+
   end
 
   namespace :teacher do
     get "dashboard", to: "dashboards#dashboard"
+    resources :ratings, except: [:show, :destroy]
   end
 
   namespace :student do
